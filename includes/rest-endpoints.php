@@ -18,8 +18,7 @@ function insert_custom_data(WP_REST_Request $request) {
     global $wpdb;
     $table_name = $wpdb->prefix . 'custom_data';
 
-    $user_id = get_current_user_id();
-   
+    $user_id = get_current_user_id();   
     $user = sanitize_text_field($request->get_param('user_login'));
     $company_name = sanitize_text_field($request->get_param('company_name'));
     $address = sanitize_text_field($request->get_param('address'));
@@ -40,11 +39,14 @@ function insert_custom_data(WP_REST_Request $request) {
 
 function get_custom_data() {
     global $wpdb;
-    $table_name = $wpdb->prefix . 'custom_data';
-    $user_id = get_current_user_id();
-
+    $custom_table = $wpdb->prefix . 'custom_data';
+     // $user_id = wp_get_current_user();
+    // $current_user = $user_id->ID;
+    $current_user = wp_get_current_user();
+    $user = $current_user->user_login;
+    
   //$results = $wpdb->get_results($wpdb->prepare("SELECT * FROM $table_name WHERE user_id = %d", $user_id));
-   $results = $wpdb->get_results($wpdb->prepare("SELECT $table_name.address, $table_name.phone, $table_name.product_name, $table_name.current_user FROM $table_name WHERE user_id = $user_id "));
+   $results = $wpdb->get_results($wpdb->prepare("SELECT * FROM $custom_table WHERE user_login = %d", $user));
 
     return new WP_REST_Response($results, 200);
 }

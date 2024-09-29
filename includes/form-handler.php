@@ -76,7 +76,8 @@ function user_dashboard_shortcode() {
                         tr.innerHTML = `<td>${row.company_name}</td>
                         <td>${row.address}</td>
                         <td>${row.phone}</td>
-                        <td>${row.product_name}</td>`;
+                        <td>${row.product_name}</td>
+                        <td>${row.user_login}</td>`;
                         tbody.appendChild(tr);
                     });
                 });
