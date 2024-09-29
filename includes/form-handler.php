@@ -8,12 +8,15 @@ function user_dashboard_shortcode() {
     <div style="display: flex;">
         <!-- Form on the left side -->
         <div style="width: 50%;">
-            <h3>Insert Company Data</h3>
+            <h3>Insert Company Data </h3>
+            <?php $current_user = wp_get_current_user();
+                  echo $user=$current_user->user_login; ?>
             <form id="custom-data-form">
                 <label>Company Name: <input type="text" name="company_name" required></label><br>
                 <label>Address: <input type="text" name="address" required></label><br>
                 <label>Phone: <input type="text" name="phone" required></label><br>
                 <label>Product Name: <input type="text" name="product_name" required></label><br>
+                <lable>User: <input type="hidden" name="user_login" value="<?php echo $user;?>"></label><br>
                 <button type="submit">Submit</button>
             </form>
             <div id="form-response"></div>
@@ -30,6 +33,7 @@ function user_dashboard_shortcode() {
                         <th>Address</th>
                         <th>Phone</th>
                         <th>Product Name</th>
+                        <th>User</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -69,7 +73,10 @@ function user_dashboard_shortcode() {
 
                     data.filter(item => item.company_name.includes(searchTerm)).forEach(row => {
                         const tr = document.createElement('tr');
-                        tr.innerHTML = `<td>${row.company_name}</td><td>${row.address}</td><td>${row.phone}</td><td>${row.product_name}</td>`;
+                        tr.innerHTML = `<td>${row.company_name}</td>
+                        <td>${row.address}</td>
+                        <td>${row.phone}</td>
+                        <td>${row.product_name}</td>`;
                         tbody.appendChild(tr);
                     });
                 });
