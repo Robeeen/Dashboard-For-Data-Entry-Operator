@@ -28,8 +28,9 @@ function create_custom_table() {
 
     $charset_collate = $wpdb->get_charset_collate();
     $sql = "CREATE TABLE $table_name (
-        id mediumint(9) NOT NULL AUTO_INCREMENT,
+        id mediumint(9) NOT NULL AUTO_INCREMENT,        
         user_id bigint(20) UNSIGNED NOT NULL,
+        user_login varchar(255) NOT NULL,
         company_name varchar(255) NOT NULL,
         address varchar(255) NOT NULL,
         phone varchar(15) NOT NULL,

@@ -1,6 +1,6 @@
 <?php
 
-// Inside includes/form-handler.php
+// Inside includes/form-handler.php+
 
 function user_dashboard_shortcode() {
     ob_start();
@@ -10,13 +10,19 @@ function user_dashboard_shortcode() {
         <div style="width: 50%;">
             <h3>Insert Company Data </h3>
             <?php $current_user = wp_get_current_user();
-                  echo $user=$current_user->user_login; ?>
+                 echo $user=$current_user->user_login; 
+                 echo $id = $current_user->ID;
+                 $_wpnonce = wp_create_nonce( 'wp_rest' );
+                 
+                 ?>
             <form id="custom-data-form">
+                <lable><input type="hidden" name="user_id" value="<?php echo $id;?>"></label><br>
                 <label>Company Name: <input type="text" name="company_name" required></label><br>
                 <label>Address: <input type="text" name="address" required></label><br>
                 <label>Phone: <input type="text" name="phone" required></label><br>
                 <label>Product Name: <input type="text" name="product_name" required></label><br>
-                <lable>User: <input type="hidden" name="user_login" value="<?php echo $user;?>"></label><br>
+                <lable><input type="hidden" name="user_login" value="<?php echo $user;?>"></label><br>
+               
                 <button type="submit">Submit</button>
             </form>
             <div id="form-response"></div>
@@ -29,11 +35,11 @@ function user_dashboard_shortcode() {
             <table id="data-table">
                 <thead>
                     <tr>
-                        <th>Company Name</th>
-                        <th>Address</th>
-                        <th>Phone</th>
-                        <th>Product Name</th>
-                        <th>User</th>
+                        <th>Company Name | </th>
+                        <th>Address | </th>
+                        <th>Phone | </th>
+                        <th>Product Name |</th>
+                        <th>ID<?php echo get_current_user_id();?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -65,7 +71,7 @@ function user_dashboard_shortcode() {
         });
 
         function fetchData(searchTerm = '') {
-            fetch('<?php echo esc_url(rest_url('custom-dashboard/v1/data/')); ?>')
+            fetch('<?php echo esc_url(rest_url('custom-dashboard/v1/data/')); ?>'),
                 .then(response => response.json())
                 .then(data => {
                     const tbody = document.querySelector('#data-table tbody');
@@ -73,17 +79,18 @@ function user_dashboard_shortcode() {
 
                     data.filter(item => item.company_name.includes(searchTerm)).forEach(row => {
                         const tr = document.createElement('tr');
-                        tr.innerHTML = `<td>${row.company_name}</td>
+                        tr.innerHTML = `
+                        <td>${row.company_name}</td>
                         <td>${row.address}</td>
                         <td>${row.phone}</td>
-                        <td>${row.product_name}</td>
-                        <td>${row.user_login}</td>`;
+                        <td>${row.product_name}</td>                        
+                        <td>${row.user_id}</td>`;
                         tbody.appendChild(tr);
                     });
                 });
         }
 
-        fetchData(); // Load data on page load
+        fetchData(); // Load data on page reload
     </script>
     <?php
     return ob_get_clean();
