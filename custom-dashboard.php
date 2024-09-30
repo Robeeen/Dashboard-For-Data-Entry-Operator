@@ -46,3 +46,5 @@ function create_custom_table() {
 include_once(plugin_dir_path(__FILE__) . 'includes/user-pages.php');
 include_once(plugin_dir_path(__FILE__) . 'includes/form-handler.php');
 include_once(plugin_dir_path(__FILE__) . 'includes/rest-endpoints.php');
+include_once(plugin_dir_path(__FILE__) . 'includes/admin/admin.php');
+

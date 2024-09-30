@@ -61,11 +61,13 @@ function user_dashboard_shortcode() {
             .then(data => {
                 document.getElementById('form-response').innerText = 'Data inserted successfully!';
                 fetchData(); // Reload table data after inserting
+                document.getElementById("custom-data-form").reset();
             });
         });
 
         document.getElementById('search-input').addEventListener('input', function() {
             fetchData(this.value);
+            
         });
 
         function fetchData(searchTerm = '') {
