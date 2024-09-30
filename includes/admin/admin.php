@@ -1,5 +1,21 @@
 <?php
 
+function cmb_add_meta_box() {
+        add_meta_box(    
+        'custom_post_metabox',    
+        'Our Products',    
+        'cmb_display_meta_box',    
+        'post',    
+        'normal',    
+        'high'    
+        );    
+    }
+    
+add_action( 'add_meta_boxes', 'cmb_add_meta_box' );
+
+
+
+//Call for Dashbaord admin page.
 function dashboard_admin_menu() {
     add_menu_page(
         __( 'Page Title', 'my-textdomain' ),
