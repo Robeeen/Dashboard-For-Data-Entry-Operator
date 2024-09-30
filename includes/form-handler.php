@@ -10,10 +10,8 @@ function user_dashboard_shortcode() {
         <div style="width: 50%;">
             <h3>Insert Company Data </h3>
             <?php $current_user = wp_get_current_user();
-                 echo $user=$current_user->user_login; 
-                 echo $id = $current_user->ID;
-                 $_wpnonce = wp_create_nonce( 'wp_rest' );
-                 
+                  $id = $current_user->ID;
+                  echo "Hello! " . $user=$current_user->user_login;                
                  ?>
             <form id="custom-data-form">
                 <lable><input type="hidden" name="user_id" value="<?php echo $id;?>"></label><br>
@@ -39,7 +37,7 @@ function user_dashboard_shortcode() {
                         <th>Address | </th>
                         <th>Phone | </th>
                         <th>Product Name |</th>
-                        <th>ID<?php echo get_current_user_id();?></th>
+                        <th>Logged By</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,7 +59,7 @@ function user_dashboard_shortcode() {
             })
             .then(response => response.json())
             .then(data => {
-                document.getElementById('form-response').innerText = 'Data inserted successfully';
+                document.getElementById('form-response').innerText = 'Data inserted successfully!';
                 fetchData(); // Reload table data after inserting
             });
         });
@@ -71,7 +69,7 @@ function user_dashboard_shortcode() {
         });
 
         function fetchData(searchTerm = '') {
-            fetch('<?php echo esc_url(rest_url('custom-dashboard/v1/data/')); ?>'),
+            fetch('<?php echo esc_url(rest_url('custom-dashboard/v1/data/')); ?>')
                 .then(response => response.json())
                 .then(data => {
                     const tbody = document.querySelector('#data-table tbody');
@@ -84,7 +82,7 @@ function user_dashboard_shortcode() {
                         <td>${row.address}</td>
                         <td>${row.phone}</td>
                         <td>${row.product_name}</td>                        
-                        <td>${row.user_id}</td>`;
+                        <td>${row.user_login}</td>`;
                         tbody.appendChild(tr);
                     });
                 });

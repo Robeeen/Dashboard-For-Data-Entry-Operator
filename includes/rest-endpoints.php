@@ -35,13 +35,11 @@ function insert_custom_data(WP_REST_Request $request) {
         'product_name' => $product_name
     ));
 
-    return new WP_REST_Response('Data inserted successfully', 200);
+    return new WP_REST_Response('Data inserted successfully!!', 200);
 }
 
-function get_custom_data() {
-    
-   global $user_ID;
-    
+function get_custom_data() {    
+   
     global $wpdb;
     $custom_table = $wpdb->prefix . 'custom_data';    
     $query = $wpdb->prepare("SELECT * FROM $custom_table WHERE $custom_table.user_id = %d", $GLOBALS['user_id']);
