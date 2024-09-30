@@ -14,5 +14,6 @@ function dashboard_admin_menu() {
 add_action( 'admin_menu', 'dashboard_admin_menu' );
 
 function my_admin_page_contents(){
-    echo "hellow this is admin";
+
+    echo __("hellow this is admin");
 }

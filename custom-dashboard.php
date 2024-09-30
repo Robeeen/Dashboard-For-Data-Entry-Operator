@@ -20,6 +20,10 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+//plugin Versions
+define( 'PLUGIN_NAME_VERSION', '1.0.0' );
+
+
 // Activation hook to create a custom table
 register_activation_hook(__FILE__, 'create_custom_table');
 function create_custom_table() {
@@ -43,8 +47,9 @@ function create_custom_table() {
 }
 
 // Include other plugin components
-include_once(plugin_dir_path(__FILE__) . 'includes/user-pages.php');
-include_once(plugin_dir_path(__FILE__) . 'includes/form-handler.php');
-include_once(plugin_dir_path(__FILE__) . 'includes/rest-endpoints.php');
-include_once(plugin_dir_path(__FILE__) . 'includes/admin/admin.php');
+define( 'MY_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
+include_once( MY_PLUGIN_PATH . 'includes/user-pages.php');
+include_once( MY_PLUGIN_PATH . 'includes/form-handler.php');
+include_once( MY_PLUGIN_PATH . 'includes/rest-endpoints.php');
+include_once( MY_PLUGIN_PATH . 'includes/admin/admin.php');
 
