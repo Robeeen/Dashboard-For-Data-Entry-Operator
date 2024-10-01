@@ -41,6 +41,7 @@ function my_admin_page_contents(){
     ?>
     <div class="wrap">         
             <form method="POST">
+            <?php wp_nonce_field('save_checkbox', 'my_checkbox_nonce'); ?>
                 <label for="my_checkbox">
                     <input type="checkbox" name="my_checkbox" id="my_checkbox" value="1" />
                     Enable the User
@@ -50,26 +51,72 @@ function my_admin_page_contents(){
     </div>  
 
 <?php 
+}
 
-add_action('admin_init', 'handle_checkbox_submission');
+add_action('admin_init', 'my_handle_form_submission');
 
-function handle_checkbox_submission(){
-    if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['my_checkbox'])){
-        $post_id = 500;
-        $checkbox_value = $_POST['my_checkbox'] ? 1 : 0;
+function my_handle_form_submission() {
 
-        if(!add_post_meta($post_id, '_my_checkbox', $checkbox_value, false)){
-            update_post_meta($post_id, '_my_checkbox', $checkbox_value);
-        }
 
-        // Optional: Add an admin notice after saving
-        add_action('admin_notice', function(){
-            echo '<div class="notice">Checkbox Value saved</div>';
-        });
-
+    if (!isset($_POST['my_checkbox_nonce']) || !wp_verify_nonce($_POST['my_checkbox_nonce'], 'save_checkbox')) {
+        return; // Nonce verification failed, do nothing
     }
+
+    // Check for user permission to save (optional security check)
+    if (!current_user_can('edit_posts')) {
+        return; // Current user doesn't have permission
+    }
+
+    // Sanitize and retrieve checkbox value
+    $checkbox_value = isset($_POST['my_checkbox']) ? 1 : 0; // Handle unchecked case
+
+    // Debug: Check if post ID is valid
+    $post_id = 98; // You should replace this with a real post ID or get it dynamically
+
+    if ($post = get_post($post_id)) {
+
+        // Attempt to add the post meta
+        $meta_key = '_my_checkbox_meta_key';
+        $add_meta_result = add_post_meta($post_id, $meta_key, $checkbox_value, true);
+
+        // If the meta already exists, update it
+        if (!$add_meta_result) {
+            $update_meta_result = update_post_meta($post_id, $meta_key, $checkbox_value);
+
+            if ($update_meta_result) {
+                add_action('admin_notices', function() {
+                    echo '<div class="notice notice-success is-dismissible">
+                            <p>Checkbox value updated successfully!</p>
+                          </div>';
+                });
+            } else {
+                add_action('admin_notices', function() {
+                    echo '<div class="notice notice-error is-dismissible">
+                            <p>Failed to update the checkbox value!</p>
+                          </div>';
+                });
+            }
+        } else {
+            add_action('admin_notices', function() {
+                echo '<div class="notice notice-success is-dismissible">
+                        <p>Checkbox value added successfully!</p>
+                      </div>';
+            });
+        }
+    } else {
+        // Invalid post ID
+        add_action('admin_notices', function() {
+            echo '<div class="notice notice-error is-dismissible">
+                    <p>Invalid post ID. Post does not exist!</p>
+                  </div>';
+        });
+    }
+
+
 }
-}
+
+
+
 
 
 
