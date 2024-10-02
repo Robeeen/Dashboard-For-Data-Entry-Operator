@@ -1,11 +1,11 @@
 console.log("Connected");
 
-document.getElementById('').addEventListener('submit', function(e) {
+document.getElementById('admin_call').addEventListener('submit', function(e) {
     e.preventDefault();
 
     const formData = new FormData(this);
 
-    fetch("<?php echo esc_url(rest_url('custom-dashboard/v1/data/')); ?>", {
+    fetch("<?php echo esc_url(rest_url('custom-dashboard/v1/update/')); ?>", {
         method: 'POST',
         body: formData
     })

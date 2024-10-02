@@ -37,12 +37,16 @@ function my_admin_page_contents(){
                             <input type='checkbox' name='permission' id='permission' value='1' />
                             Permit User
                         </label> 
+
                     </td>
                 </tr>";         
         }}
         
         echo "</tbody>";
         echo "</table></form>";
+        echo "<div id='form-response'></div>";
+
+      
 
         if($display->user_login){
             echo "true";
