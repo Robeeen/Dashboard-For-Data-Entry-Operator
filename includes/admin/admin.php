@@ -36,7 +36,9 @@ function my_admin_page_contents(){
                         <label for='test'>
                             <input type='checkbox' name='permission' id='permission' value='1' />
                             Permit User
-                        </label> 
+                        </label>
+                        <input type='submit' value='submit' />
+                        
 
                     </td>
                 </tr>";         
@@ -44,15 +46,29 @@ function my_admin_page_contents(){
         
         echo "</tbody>";
         echo "</table></form>";
-        echo "<div id='form-response'></div>";
+        echo "<div id='form-response'></div>";     
 
-      
-
-        if($display->user_login){
-            echo "true";
-        }
     ?>
-   
+ <script>
+ document.getElementById('admin_call').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    console.log('clicked');
+
+    const formData = new FormData(this);
+
+
+    fetch("<?php echo esc_url(rest_url('custom-dashboard/v1/update/')); ?>", {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('form-response').innerText = 'Data inserted successfully!';        
+    });
+    console.log(data);
+});
+</script>  
     
 
 <?php 

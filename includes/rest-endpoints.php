@@ -15,31 +15,40 @@ add_action('rest_api_init', function () {
         'callback' => 'get_custom_data',
         'permission_callback' => '__return_true',
     ));
-    register_rest_route('custom-dashboard/v1', '/update/', array(
+    register_rest_route('custom-dashboard/v1', '/update/(?P<id>\d+)', array(
         'methods' => 'PUT',
         'callback' => 'update_permission',
+        'args' => array(
+            'id' => array(
+                'required' => true,
+                'validate_callback' => function($param, $request, $key){
+                    return is_numeric($param);
+                }
+            )
+            ),
         'permission_callback' => '__return_true',
     ));
 });
 
 function update_permission(WP_REST_Request $request){
     global $wpdb;
-    $custom_table = $wpdb->prefix . 'custom_data'; 
-    $user_login = $display->user_login;
+    $custom_table = $wpdb->prefix . 'users'; 
 
-    $user_permission = sanitize_text_field($request->get_param('user_permission'));
-    $wpdb->update(
+    $user_id = $display->ID;   
+    $user_status = sanitize_text_field($request->get_param('user_status'));
+    
+    $result = $wpdb->update(
         $custom_table, 
         array(
-            'user_permission' => $user_permission,
+            'user_status' => $user_status,
         ),
         array(
-            'user_login' => $user_login,
-        ),
-        
-    
-    
+            'id' => $user_id,
+        ),  
     );
+    if ($result === false){
+        var_dump($result);
+    }
 
     return new WP_REST_Response('Updated Permission successfully!!', 200);
 }
