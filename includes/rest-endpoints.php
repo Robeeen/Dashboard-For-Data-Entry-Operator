@@ -14,7 +14,30 @@ add_action('rest_api_init', function () {
         'callback' => 'get_custom_data',
         'permission_callback' => '__return_true',
     ));
+    register_rest_route('custom-dashboard/v1', '/update/', array(
+        'methods' => 'PUT',
+        'callback' => 'update_permission',
+        'permission_callback' => '__return_true',
+    ));
 });
+
+function update_permission(WP_REST_Request $request){
+    global $wpdb;
+    $custom_table = $wpdb->prefix . 'custom_data'; 
+
+    $user_permission = sanitize_text_field($request->get_param('user_permission'));
+    $wpdb->update(
+        $custom_table, 
+        array(
+        'user_permission' => $user_permission,
+        ),
+        
+    
+    
+    );
+
+    return new WP_REST_Response('Updated Permission successfully!!', 200);
+}
 
 function insert_custom_data(WP_REST_Request $request) {
     global $wpdb;
@@ -25,6 +48,7 @@ function insert_custom_data(WP_REST_Request $request) {
     $address = sanitize_text_field($request->get_param('address'));
     $phone = sanitize_text_field($request->get_param('phone'));
     $product_name = sanitize_text_field($request->get_param('product_name'));
+    $user_permission = sanitize_text_field($request->get_param('user_permission'));
 
     $wpdb->insert($custom_table, array(
         'user_id' => $user_id,
@@ -32,7 +56,8 @@ function insert_custom_data(WP_REST_Request $request) {
         'company_name' => $company_name,
         'address' => $address,
         'phone' => $phone,
-        'product_name' => $product_name
+        'product_name' => $product_name,
+        'user_permission' => $user_permission,
     ));
 
     return new WP_REST_Response('Data inserted successfully!!', 200);
