@@ -31,12 +31,16 @@ add_action('rest_api_init', function () {
 });
 
 function update_permission(WP_REST_Request $request){
-    global $wpdb;
-    $custom_table = $wpdb->prefix . 'users'; 
+    global $wpdb; 
 
     $user_id = $display->ID;   
     $user_status = sanitize_text_field($request->get_param('user_status'));
-    
+
+    if (empty($user_status)) {
+        return new WP_Error('no_value', 'New value is required', array('status' => 400));
+    }
+
+    $custom_table = $wpdb->prefix . 'users'; 
     $result = $wpdb->update(
         $custom_table, 
         array(
