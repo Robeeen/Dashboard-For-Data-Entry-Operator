@@ -1,4 +1,5 @@
 <?php
+include('E:\xampp\htdocs\devwp\wp-content\plugins\dashboard\includes\admin\admin.php');
 
 // Inside includes/rest-endpoints.php
 $user_id = ""; 
@@ -24,12 +25,16 @@ add_action('rest_api_init', function () {
 function update_permission(WP_REST_Request $request){
     global $wpdb;
     $custom_table = $wpdb->prefix . 'custom_data'; 
+    $user_login = $display->user_login;
 
     $user_permission = sanitize_text_field($request->get_param('user_permission'));
     $wpdb->update(
         $custom_table, 
         array(
-        'user_permission' => $user_permission,
+            'user_permission' => $user_permission,
+        ),
+        array(
+            'user_login' => $user_login,
         ),
         
     

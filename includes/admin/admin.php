@@ -2,7 +2,6 @@
 
 
 
-
 //Call for Dashbaord admin page.
 add_action( 'admin_menu', 'dashboard_admin_menu' );
 
@@ -46,7 +45,7 @@ function my_admin_page_contents(){
         echo "</table></form>";
 
         if($display->user_login){
-
+            echo "true";
         }
     ?>
    
