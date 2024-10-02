@@ -23,7 +23,7 @@ function my_admin_page_contents(){
     global $wpdb;
     $custom_table = $wpdb->prefix . 'users';    
     $query = $wpdb->get_results("SELECT * FROM $custom_table");
-    echo "<form action='admin.php' method='get' id='admin_call'><table border=1 >";
+    echo "<form action='' method='POST'><table border=1 >";
             echo "<tbody>";
             echo "<tr>";
             echo "<th>User Name </th><th>Company Name </th><th>Controls</th>";
@@ -33,64 +33,44 @@ function my_admin_page_contents(){
             echo "<tr><td>$display->user_login</td>
                     <td>$display->user_email</td>
                     <td>              
-                            <input type='text' name='permission' id= value='$display->user_status' />                           
+                        <input type='text' name='permission' id='permission'/>                 
                         
-                        <input type='submit' value='submit' />
-                        
-
+                        <input type='submit' name='submit_permission' value='submit' /> 
                     </td>
                 </tr>";         
-        }}
+    }};
         
-        echo "</tbody>";
-        echo "</table></form>";
-        echo "<div id='form-response'></div>";     
-
-    ?>
- <script>
- document.getElementById('admin_call').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    console.log('clicked');
-
-    const formData = new FormData(this);
-
-
-    fetch("<?php echo esc_url(rest_url('custom-dashboard/v1/update/')); ?>", {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById('form-response').innerText = 'Data inserted successfully!';        
-    });
-    console.log(data);
-});
-</script>  
+    echo "</tbody>";
+    echo "</table></form>";
+    echo "<div id='form-response'></div>";   
     
 
-<?php 
-}
-add_action('admin_init', 'my_handle_form_submission');
+    if(isset($_POST['submit_permission'])){
+            $status = is_numeric( $_POST['permission'] );
+            $record_id = $display->ID;
+            
 
-function my_handle_form_submission() {
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['dashboard'])) {
-        // Assuming you are adding the meta to a specific post (e.g., post ID 123)
-        $post_id = 123;
-        $checkbox_value = $_POST['dashboard'] ? 1 : 0;
+        if(!empty( $status && $record_id )){
+            global $wpdb;
+            $table_name = $wpdb->prefix . 'users';
 
-        // Add or update the post meta
-        if (!add_post_meta($post_id, 'dashboard', $checkbox_value, true)) {
-            update_post_meta($post_id, 'dashboard', $checkbox_value);
+            $result = $wpdb->update(
+                $table_name,
+                array(
+                    'user_status' => $status,
+                ),
+                array(
+                    'ID' => $record_id,
+                )
+                );
         }
-
-        // Optional: Add an admin notice after saving
-        add_action('admin_notices', function() {
-            echo '<div class="notice notice-success is-dismissible">
-                    <p>Checkbox value saved successfully!</p>
-                  </div>';
-        });
+        if($result !== false){
+            echo "Status Updated Successfully.";
+        }else{
+            echo "Failed to Update";
+        }
     }
+
 }
 
 
