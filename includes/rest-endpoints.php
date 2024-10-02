@@ -51,7 +51,7 @@ function update_permission(WP_REST_Request $request){
         ),  
     );
     if ($result === false){
-        var_dump($result);
+        return new WP_Error('db_update_error', 'Failed to update the record', array('status' => 500));
     }
 
     return new WP_REST_Response('Updated Permission successfully!!', 200);

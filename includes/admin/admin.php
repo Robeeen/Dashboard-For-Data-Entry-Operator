@@ -32,11 +32,9 @@ function my_admin_page_contents(){
         foreach($query as $display){            
             echo "<tr><td>$display->user_login</td>
                     <td>$display->user_email</td>
-                    <td>
-                        <label for='test'>
-                            <input type='checkbox' name='permission' id='permission' value='1' />
-                            Permit User
-                        </label>
+                    <td>              
+                            <input type='text' name='permission' id= value='$display->user_status' />                           
+                        
                         <input type='submit' value='submit' />
                         
 
