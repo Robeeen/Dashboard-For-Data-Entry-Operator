@@ -24,17 +24,19 @@ function my_admin_page_contents(){
     $custom_table = $wpdb->prefix . 'users';    
     $query = $wpdb->get_results("SELECT * FROM $custom_table");
     echo "<form action='' method='POST'><table border=1 >";
+    echo wp_nonce_field( 'update_permission_action', 'update_permission_nonce' );
+
             echo "<tbody>";
             echo "<tr>";
             echo "<th>User Name </th><th>Company Name </th><th>Controls</th>";
             echo "</tr>";
     if($query){        
         foreach($query as $display){            
-            echo "<tr><td>$display->user_login</td>
+            echo "<tr>
+                    <td>$display->user_login</td>
                     <td>$display->user_email</td>
                     <td>              
-                        <input type='text' name='permission' id='permission'/>                 
-                        
+                        <input type='text' name='status' id='status'/>                      
                         <input type='submit' name='submit_permission' value='submit' /> 
                     </td>
                 </tr>";         
@@ -45,8 +47,8 @@ function my_admin_page_contents(){
     echo "<div id='form-response'></div>";   
     
 
-    if(isset($_POST['submit_permission'])){
-            $status = is_numeric( $_POST['permission'] );
+    if(isset($_POST['submit_permission']) && check_admin_referer( 'update_permission_action', 'update_permission_nonce' )){
+            $status = absint( $_POST['status'] );
             $record_id = $display->ID;
             
 
@@ -63,12 +65,16 @@ function my_admin_page_contents(){
                     'ID' => $record_id,
                 )
                 );
+
+                if($result !== false){
+                    echo "Status Updated Successfully.";
+                }else{
+                    echo "Failed to Update";
+                }
         }
-        if($result !== false){
-            echo "Status Updated Successfully.";
-        }else{
-            echo "Failed to Update";
-        }
+        
+    }else{
+        echo "nonce vertification failed or fill-up the Filed value";
     }
 
 }
