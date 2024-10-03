@@ -54,6 +54,8 @@ include_once( MY_PLUGIN_PATH . 'includes/form-handler.php');
 include_once( MY_PLUGIN_PATH . 'includes/rest-endpoints.php');
 include_once( MY_PLUGIN_PATH . 'includes/admin/admin.php');
 
+
+//For admin panel js and css 
 function add_ajax_scripts() {
     wp_enqueue_script( 'ajaxcalls', plugins_url( 'ajax-calls.js', __FILE__ ));
     wp_localize_script( 'ajaxcalls', 'ajax_object', array(
@@ -65,9 +67,17 @@ function add_ajax_scripts() {
 
 add_action( 'admin_enqueue_scripts', 'add_ajax_scripts' );
 
+
+//For admin panel and front-end bootstrap
 wp_register_script('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js');
 wp_enqueue_script('prefix_bootstrap');
 
 wp_register_style('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
 wp_enqueue_style('prefix_bootstrap');
+
+//For style to front-end
+function style_frontEnd(){
+    wp_enqueue_style( 'CSS', plugins_url( 'front-style.css', __FILE__));
+}
+add_action( 'wp_enqueue_scripts', 'style_frontEnd');
 

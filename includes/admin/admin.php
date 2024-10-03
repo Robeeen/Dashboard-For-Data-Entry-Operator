@@ -35,13 +35,14 @@ function submenu_page_callback(){
    // echo $user_result->user_status;
     ?>
 <form action='' method='POST'>
-    <h2>Change Permission</h2>
-   
+<div class='jumbotron'>
+    <h2 class='display-4'>Change Permission</h2><br>  
     <div class="form-check checkbox-xl">
         <input type='checkbox' class='form-check-input' id='status' name='status'
             <?php echo $user_result->user_status ? 'checked' : '';?> />            
         <input type='submit' name='submit_permission' value='submit' class="btn btn-primary" />
     </div>
+</div>
 
 </form>
 <?php
@@ -98,7 +99,7 @@ function my_admin_page_contents(){
                   echo "<tr> 
                             <td>$display->user_login</td>
                             <td>$display->user_email</td>
-                            <td><a href='admin.php?page=edit-page&id=$display->ID' class='btn btn-info' role='button'>Edit</a></td>
+                            <td><a href='admin.php?page=edit-page&id=$display->ID' class='btn btn-primary btn-sm' role='button'>Edit</a></td>
                         </tr>"; 
             }     
     }     

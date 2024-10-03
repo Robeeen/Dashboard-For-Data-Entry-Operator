@@ -37,7 +37,7 @@ function user_dashboard_shortcode() {
                 <lable><input type="hidden" name="user_login" value="<?php echo $user;?>"></label>
             </div>
 
-            <button type="button" class="btn btn-primary">Submit</button>
+            <button type="submit" id="submit" class="btn btn-primary">Submit</button>
         </form>
         <div id="form-response"></div>
     </div>
