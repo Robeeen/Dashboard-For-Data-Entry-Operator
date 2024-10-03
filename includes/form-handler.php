@@ -22,14 +22,22 @@ function user_dashboard_shortcode() {
                   echo "Hello! " . $user=$current_user->user_login;                
                  ?>
             <form id="custom-data-form">
-                <lable><input type="hidden" name="user_id" value="<?php echo $id;?>"></label><br>
-                <label>Company Name: <input type="text" name="company_name" required></label><br>
-                <label>Address: <input type="text" name="address" required></label><br>
-                <label>Phone: <input type="text" name="phone" required></label><br>
-                <label>Product Name: <input type="text" name="product_name" required></label><br>
-                <lable><input type="hidden" name="user_login" value="<?php echo $user;?>"></label><br>
+            <div class="form-group">
+                <lable><input type="hidden" name="user_id" value="<?php echo $id;?>"></label>
+                <label>Company Name: <input type="text" class="form-control" name="company_name" required></label>
+</div>
+<div class="form-group">
+                <label>Address: <input type="text" class="form-control" name="address" required></label>
+</div>
+<div class="form-group">
+                <label>Phone: <input type="text" class="form-control" name="phone" required></label>
+</div>
+<div class="form-group">
+                <label>Product Name: <input type="text" class="form-control" name="product_name" required></label>
+                <lable><input type="hidden" name="user_login" value="<?php echo $user;?>"></label>
+</div>
                
-                <button type="submit">Submit</button>
+                <button type="button" class="btn btn-primary">Submit</button>
             </form>
             <div id="form-response"></div>
         </div>
