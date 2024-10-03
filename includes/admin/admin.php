@@ -29,13 +29,15 @@ function dashboard_admin_menu() {
 function submenu_page_callback(){
     echo "<form action='' method='POST'>";  
     echo "<h2>Change Permission</h2>" . "<br/>";
-    echo "<input type='text' name='status' id='status'/>";                      
+    //echo "<input type='text' name='status' id='status'/>";     
+    echo "<input type='checkbox' id='status' name='status'  />";               
     echo "<input type='submit' name='submit_permission' value='submit' />";
     echo "</form>";
 
     if(isset($_REQUEST['submit_permission'])){
         
-        $status = $_REQUEST['status'];
+        //$status = $_REQUEST['status'];
+        $checkbox_value = $_POST['status'] ? 1 : 0;
         $record_id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : "";
         
 
@@ -46,7 +48,7 @@ function submenu_page_callback(){
         $result = $wpdb->update(
             $table_name,
             array(
-                'user_status' => $status,
+                'user_status' => $checkbox_value,
             ),
             array(
                 'ID' => $record_id,
