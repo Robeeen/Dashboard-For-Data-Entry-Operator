@@ -39,8 +39,7 @@ function submenu_page_callback(){
    
     <div class="form-check checkbox-xl">
         <input type='checkbox' class='form-check-input' id='status' name='status'
-            <?php echo $user_result->user_status ? 'checked' : '';?> />
-            <label class="form-check-label" for="customCheck1">Tick to disable or enable</label>
+            <?php echo $user_result->user_status ? 'checked' : '';?> />            
         <input type='submit' name='submit_permission' value='submit' class="btn btn-primary" />
     </div>
 
@@ -81,14 +80,16 @@ function submenu_page_callback(){
 
 function my_admin_page_contents(){
 
-    echo __("hellow this is admin");
+    
     global $wpdb;
     $custom_table = $wpdb->prefix . 'users';    
     $query = $wpdb->get_results("SELECT * FROM $custom_table");
+    echo "<div class='jumbotron'>";
+    echo  __("<h2 class='display-4'>Dashboard Control for Users</h2><br>");
     echo "<form action='' method='POST'><table class='table' >";            
             echo "<thead class='thead-dark'>";
             echo "<tr>";
-            echo "<th scope='col'>User Name </th><th scope='col'>Company Name </th><th>Controls</th>";
+            echo "<th scope='col'>User Name</th><th scope='col'>Email</th><th>Controls</th>";
             echo "</tr>";
             echo "</thead>";
             echo "<tbody>";
@@ -97,12 +98,13 @@ function my_admin_page_contents(){
                   echo "<tr> 
                             <td>$display->user_login</td>
                             <td>$display->user_email</td>
-                            <td><button><a href='admin.php?page=edit-page&id=$display->ID'>Edit</a></button></td>
+                            <td><a href='admin.php?page=edit-page&id=$display->ID' class='btn btn-info' role='button'>Edit</a></td>
                         </tr>"; 
             }     
     }     
   
     echo "</tbody>";
     echo "</table></form>";
+    echo "</div>";
     echo "<div id='form-response'></div>";   
 }
