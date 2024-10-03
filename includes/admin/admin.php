@@ -34,11 +34,17 @@ function submenu_page_callback(){
     );
    // echo $user_result->user_status;
     ?>
-    <form action='' method='POST'>  
-        <h2>Change Permission</h2>
-        <input type='checkbox' class='form-check-input' id='status' name='status' <?php echo $user_result->user_status ? 'checked' : '';?> />               
+<form action='' method='POST'>
+    <h2>Change Permission</h2>
+   
+    <div class="form-check checkbox-xl">
+        <input type='checkbox' class='form-check-input' id='status' name='status'
+            <?php echo $user_result->user_status ? 'checked' : '';?> />
+            <label class="form-check-label" for="customCheck1">Tick to disable or enable</label>
         <input type='submit' name='submit_permission' value='submit' class="btn btn-primary" />
-    </form>
+    </div>
+
+</form>
 <?php
     if(isset($_REQUEST['submit_permission'])){
         
@@ -100,10 +106,3 @@ function my_admin_page_contents(){
     echo "</table></form>";
     echo "<div id='form-response'></div>";   
 }
-
-
-
-
-
-
-

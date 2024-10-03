@@ -1,0 +1,9 @@
+.checkbox-xl .form-check-input 
+{
+    scale: 2;
+}
+.checkbox-xl .form-check-label 
+{
+    padding-left: 25px;
+    margin-right: 10px;
+}

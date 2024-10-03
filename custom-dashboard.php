@@ -60,6 +60,7 @@ function add_ajax_scripts() {
         'ajaxurl' => admin_url( 'admin-ajax.php' ),
         'ajaxnonce' => wp_create_nonce( 'ajax_post_validation' )
     ) );
+    wp_enqueue_style( 'css', plugins_url( 'style.css', __FILE__));
 }
 
 add_action( 'admin_enqueue_scripts', 'add_ajax_scripts' );
