@@ -32,12 +32,12 @@ function submenu_page_callback(){
     $user_result = $wpdb->get_row(
         $wpdb->prepare("SELECT * FROM wp_users WHERE ID = %d", $record_id)
     );
-    echo $user_result->user_status;
+   // echo $user_result->user_status;
     ?>
     <form action='' method='POST'>  
     <h2>Change Permission</h2>
-    <!-- //echo "<input type='text' name='status' id='status'/>      -->
-    <input type='checkbox' id='status' name='status'  />               
+
+    <input type='checkbox' id='status' name='status' <?php echo $user_result->user_status ? 'checked' : 0;?> />               
     <input type='submit' name='submit_permission' value='submit' />
     </form>
 <?php
