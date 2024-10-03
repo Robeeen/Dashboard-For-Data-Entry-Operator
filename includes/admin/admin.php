@@ -27,7 +27,12 @@ function dashboard_admin_menu() {
 }
 
 function submenu_page_callback(){
-    return;
+    echo "hello edit page"; ?>
+<input type='text' name='status' id='status'/>                      
+<input type='submit' name='submit_permission' value='submit' /> 
+
+
+<?php
 }
 
 function my_admin_page_contents(){
@@ -36,28 +41,21 @@ function my_admin_page_contents(){
     global $wpdb;
     $custom_table = $wpdb->prefix . 'users';    
     $query = $wpdb->get_results("SELECT * FROM $custom_table");
-    echo "<form action='' method='POST'><table border=1 >";
-    
+    echo "<form action='' method='POST'><table border=1 >";  
 
             echo "<tbody>";
             echo "<tr>";
             echo "<th>User Name </th><th>Company Name </th><th>Controls</th>";
             echo "</tr>";
-    if($query){        
-
-        foreach($query as $display){   
-            
-            
-                    echo "<tr> 
+    if($query){     
+        foreach($query as $display){
+                  echo "<tr> 
                             <td>$display->user_login</td>
                             <td>$display->user_email</td>
-                            <td>           
-                                <input type='text' name='status' id='status'/>                      
-                                <input type='submit' name='submit_permission' value='submit' /> 
-                            </td>
+                            <td><a href='admin.php?page=edit-page&id=$display->ID'>Edit</a></td>
                         </tr>"; 
             }     
-            }
+    }
                
   
         
