@@ -38,13 +38,13 @@ function user_dashboard_shortcode() {
         <div style="width: 50%;">
             <h3>Company Data</h3>
             <input type="text" id="search-input" placeholder="Search...">
-            <table id="data-table">
+            <table id="data-table" class='table' >
                 <thead>
                     <tr>
-                        <th>Company Name | </th>
-                        <th>Address | </th>
-                        <th>Phone | </th>
-                        <th>Product Name |</th>
+                        <th>Company Name</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>Product Name</th>
                         <th>Logged By</th>
                     </tr>
                 </thead>

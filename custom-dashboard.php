@@ -64,3 +64,9 @@ function add_ajax_scripts() {
 
 add_action( 'admin_enqueue_scripts', 'add_ajax_scripts' );
 
+wp_register_script('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js');
+wp_enqueue_script('prefix_bootstrap');
+
+wp_register_style('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
+wp_enqueue_style('prefix_bootstrap');
+

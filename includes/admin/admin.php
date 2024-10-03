@@ -80,18 +80,21 @@ function my_admin_page_contents(){
     global $wpdb;
     $custom_table = $wpdb->prefix . 'users';    
     $query = $wpdb->get_results("SELECT * FROM $custom_table");
-    echo "<form action='' method='POST'><table border=1 >";  
+    echo "<form action='' method='POST'><table class='table' >";  
 
-            echo "<tbody>";
+           
+            echo "<thead class='thead-dark'>";
             echo "<tr>";
-            echo "<th>User Name </th><th>Company Name </th><th>Controls</th>";
+            echo "<th scope='col'>User Name </th><th scope='col'>Company Name </th><th>Controls</th>";
             echo "</tr>";
+            echo "</thead>";
+            echo "<tbody>";
     if($query){     
         foreach($query as $display){
                   echo "<tr> 
                             <td>$display->user_login</td>
                             <td>$display->user_email</td>
-                            <td><a href='admin.php?page=edit-page&id=$display->ID'>Edit</a></td>
+                            <td><button><a href='admin.php?page=edit-page&id=$display->ID'>Edit</a></button></td>
                         </tr>"; 
             }     
     }     
