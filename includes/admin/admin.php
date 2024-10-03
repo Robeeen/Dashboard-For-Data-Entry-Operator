@@ -27,17 +27,24 @@ function dashboard_admin_menu() {
 }
 
 function submenu_page_callback(){
-    echo "<form action='' method='POST'>";  
-    echo "<h2>Change Permission</h2>" . "<br/>";
-    //echo "<input type='text' name='status' id='status'/>";     
-    echo "<input type='checkbox' id='status' name='status'  />";               
-    echo "<input type='submit' name='submit_permission' value='submit' />";
-    echo "</form>";
-
+    global $wpdb;
+    $record_id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : "";
+    $user_result = $wpdb->get_row(
+        $wpdb->prepare("SELECT * FROM wp_users WHERE ID = %d", $record_id)
+    );
+    echo $user_result->user_status;
+    ?>
+    <form action='' method='POST'>  
+    <h2>Change Permission</h2>
+    <!-- //echo "<input type='text' name='status' id='status'/>      -->
+    <input type='checkbox' id='status' name='status'  />               
+    <input type='submit' name='submit_permission' value='submit' />
+    </form>
+<?php
     if(isset($_REQUEST['submit_permission'])){
         
         //$status = $_REQUEST['status'];
-        $checkbox_value = $_POST['status'] ? 1 : 0;
+        $checkbox_value = $_REQUEST['status'] ? 1 : 0;
         $record_id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : "";
         
 
@@ -65,6 +72,8 @@ function submenu_page_callback(){
     }else{
     echo "nonce vertification failed or fill-up the Filed value";
     }
+
+    
 }
 
 function my_admin_page_contents(){
