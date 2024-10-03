@@ -27,12 +27,42 @@ function dashboard_admin_menu() {
 }
 
 function submenu_page_callback(){
-    echo "hello edit page"; ?>
-<input type='text' name='status' id='status'/>                      
-<input type='submit' name='submit_permission' value='submit' /> 
+    echo "<form action='' method='POST'>";  
+    echo "<h2>Change Permission</h2>" . "<br/>";
+    echo "<input type='text' name='status' id='status'/>";                      
+    echo "<input type='submit' name='submit_permission' value='submit' />";
+    echo "</form>";
 
+    if(isset($_REQUEST['submit_permission'])){
+        
+        $status = $_REQUEST['status'];
+        $record_id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : "";
+        
 
-<?php
+    if(!empty( $record_id )){
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'users';
+
+        $result = $wpdb->update(
+            $table_name,
+            array(
+                'user_status' => $status,
+            ),
+            array(
+                'ID' => $record_id,
+            )
+            );
+
+            if($result !== false){
+                echo "Status Updated Successfully.";
+            }else{
+                echo "Failed to Update";
+            }
+    }
+
+    }else{
+    echo "nonce vertification failed or fill-up the Filed value";
+    }
 }
 
 function my_admin_page_contents(){
@@ -55,45 +85,11 @@ function my_admin_page_contents(){
                             <td><a href='admin.php?page=edit-page&id=$display->ID'>Edit</a></td>
                         </tr>"; 
             }     
-    }
-               
+    }     
   
-        
     echo "</tbody>";
     echo "</table></form>";
     echo "<div id='form-response'></div>";   
-    
-
-    if(isset($_POST['submit_permission']) && check_admin_referer( 'update_permission_action', 'update_permission_nonce' )){
-            $status = absint( $_POST['status'] );
-            $record_id = $display->ID;
-            
-
-        if(!empty( $status && $record_id )){
-            global $wpdb;
-            $table_name = $wpdb->prefix . 'users';
-
-            $result = $wpdb->update(
-                $table_name,
-                array(
-                    'user_status' => $status,
-                ),
-                array(
-                    'ID' => $record_id,
-                )
-                );
-
-                if($result !== false){
-                    echo "Status Updated Successfully.";
-                }else{
-                    echo "Failed to Update";
-                }
-        }
-        
-    }else{
-        echo "nonce vertification failed or fill-up the Filed value";
-    }
-
 }
 
 
