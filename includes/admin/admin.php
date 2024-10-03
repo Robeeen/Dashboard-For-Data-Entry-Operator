@@ -37,7 +37,7 @@ function submenu_page_callback(){
     <form action='' method='POST'>  
     <h2>Change Permission</h2>
 
-    <input type='checkbox' id='status' name='status' <?php echo $user_result->user_status ? 'checked' : 0;?> />               
+    <input type='checkbox' id='status' name='status' <?php echo $user_result->user_status ? 'checked' : '';?> />               
     <input type='submit' name='submit_permission' value='submit' />
     </form>
 <?php
@@ -68,9 +68,7 @@ function submenu_page_callback(){
                 echo "Failed to Update";
             }
     }
-
-    }else{
-    echo "nonce vertification failed or fill-up the Filed value";
+    echo "<meta http-equiv='refresh' content='0'>";
     }
 
     

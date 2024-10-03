@@ -4,8 +4,16 @@
 
 function user_dashboard_shortcode() {
     ob_start();
+    global $wpdb;
+    $current_user = wp_get_current_user();
+    $id = $current_user->ID;
+    $user_result = $wpdb->get_row(
+        $wpdb->prepare("SELECT * FROM wp_users WHERE ID = %d", $id)
+    );
+    
     ?>
-    <div style="display: flex;">
+
+    <div style="<?php echo $user_result->user_status == 1 ? 'display : flex' : 'display: none' ;?>">
         <!-- Form on the left side -->
         <div style="width: 50%;">
             <h3>Insert Company Data </h3>
@@ -46,6 +54,7 @@ function user_dashboard_shortcode() {
             </table>
         </div>
     </div>
+    
 
     <script>
         document.getElementById('custom-data-form').addEventListener('submit', function(e) {
