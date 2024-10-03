@@ -35,10 +35,9 @@ function submenu_page_callback(){
    // echo $user_result->user_status;
     ?>
     <form action='' method='POST'>  
-    <h2>Change Permission</h2>
-
-    <input type='checkbox' id='status' name='status' <?php echo $user_result->user_status ? 'checked' : '';?> />               
-    <input type='submit' name='submit_permission' value='submit' />
+        <h2>Change Permission</h2>
+        <input type='checkbox' class='form-check-input' id='status' name='status' <?php echo $user_result->user_status ? 'checked' : '';?> />               
+        <input type='submit' name='submit_permission' value='submit' class="btn btn-primary" />
     </form>
 <?php
     if(isset($_REQUEST['submit_permission'])){
@@ -80,9 +79,7 @@ function my_admin_page_contents(){
     global $wpdb;
     $custom_table = $wpdb->prefix . 'users';    
     $query = $wpdb->get_results("SELECT * FROM $custom_table");
-    echo "<form action='' method='POST'><table class='table' >";  
-
-           
+    echo "<form action='' method='POST'><table class='table' >";            
             echo "<thead class='thead-dark'>";
             echo "<tr>";
             echo "<th scope='col'>User Name </th><th scope='col'>Company Name </th><th>Controls</th>";
