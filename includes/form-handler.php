@@ -44,18 +44,19 @@ function user_dashboard_shortcode() {
 
     <!-- Table on the right side -->
     <div style="width: 50%;">
-        <h3>Company Data</h3>
+        <h3><?php echo __('Company Data');?></h3>
+        <?php echo __('Type here to search by Company name');?>
         <div class="form-group">
             <input type="text" class="form-control"  id="search-input" placeholder="Search...">
         </div>
         <table id="data-table" class='table'>
             <thead>
                 <tr>
-                    <th>Company Name</th>
-                    <th>Address</th>
-                    <th>Phone</th>
-                    <th>Product Name</th>
-                    <th>Logged By</th>
+                    <th><?php echo __('Company Name');?></th>
+                    <th><?php echo __('Address');?></th>
+                    <th><?php echo __('Phone');?></th>
+                    <th><?php echo __('Product Name');?></th>
+                    <th><?php echo __('Logged By');?></th>
                 </tr>
             </thead>
             <tbody>

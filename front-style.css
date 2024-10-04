@@ -4,3 +4,21 @@ body{
 #custom-data-form label{
     width: 80% !important;
 }
+#form-response{
+    border-left: 5px solid green;
+    margin-top: 20px;
+    padding-left: 10px;
+    font-size: 15px;
+}
+
+body{
+    font-size: 15px;
+}
+
+.has-base-background-color {
+    background-color: #c7c7c7 !important;
+}
+
+footer{
+    background-color: #c7c7c7 !important;
+}

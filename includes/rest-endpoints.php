@@ -15,6 +15,7 @@ add_action('rest_api_init', function () {
         'callback' => 'get_custom_data',
         'permission_callback' => '__return_true',
     ));
+    //Not implemented
     register_rest_route('custom-dashboard/v1', '/update/(?P<id>\d+)', array(
         'methods' => 'PUT',
         'callback' => 'update_permission',
@@ -29,7 +30,7 @@ add_action('rest_api_init', function () {
         'permission_callback' => '__return_true',
     ));
 });
-
+//Not implemented
 function update_permission(WP_REST_Request $request){
     global $wpdb; 
 

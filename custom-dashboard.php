@@ -39,7 +39,6 @@ function create_custom_table() {
         address varchar(255) NOT NULL,
         phone varchar(15) NOT NULL,
         product_name varchar(255) NOT NULL,
-        user_permission boolean NOT NULL,
         PRIMARY KEY  (id)
     ) $charset_collate;";
 
