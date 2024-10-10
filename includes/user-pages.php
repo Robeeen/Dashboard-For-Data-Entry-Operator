@@ -25,6 +25,7 @@ function create_user_dashboard_page($user_id) {
         'post_status'   => 'publish',
         'post_type'     => 'page',
         'post_author'   => $user_id,
+        'post_name'     => $user_name . "'s-editrecord",
     );
     wp_insert_post($page_new);
 }

@@ -111,7 +111,7 @@ function fetchData(searchTerm = '') {
                         <td>${row.phone}</td>
                         <td>${row.product_name}</td>                        
                         <td>${row.user_login}</td>
-                        <td><button id=${row.id} class='btn btn-primary btn-sm' >Edit</button></td>`;
+                        <td><a href='${row.user_login}s-editrecord?id=${row.id}' class='btn btn-primary btn-sm' role='button'>Edit</a></td>`;
                 tbody.appendChild(tr);
             });         
         });        

@@ -7,9 +7,9 @@ function edit_display_form() {
 
     ob_start();
     global $wpdb;
-    echo $GLOBALS['user_id'] = get_current_user_id();
+    $id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : "";
     $user_result = $wpdb->get_row(
-        $wpdb->prepare("SELECT * FROM wp_custom_data WHERE id = %d",   $GLOBALS['user_id']));
+        $wpdb->prepare("SELECT * FROM wp_custom_data WHERE id = %d",  $id));
 ?>
     <div style="display:flex">
             <!-- Form on the left side -->
