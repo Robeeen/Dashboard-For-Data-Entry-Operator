@@ -1,28 +1,25 @@
 <?php
 
-echo "Hi";
-
     ob_start();
     global $wpdb;
-    $current_user = wp_get_current_user();
-    $id = $current_user->ID;
+
+    //$current_user = wp_get_current_user();
+    //$current_user = wp_get_current_user();
+    //$id = $current_user->ID;
+    $GLOBALS['user_id'] = get_current_user_id();
     $user_result = $wpdb->get_row(
-        $wpdb->prepare("SELECT * FROM wp_users WHERE ID = %d", $id)
+        $wpdb->prepare("SELECT * FROM wp_custom_data WHERE id = %d",   $GLOBALS['user_id'])
     );
 
     ?>
 
 <div style="display:flex">
     <!-- Form on the left side -->
-    <div style="width: 50%;">
+    <div style="width: 70%;">
         <h3>Insert Company Data</h3>
-        <?php $current_user = wp_get_current_user();
-                  $id = $current_user->ID;
-                  echo "Hello! " . $user=$current_user->user_login;                
-                 ?>
+  
         <form id="custom-data-form">
-            <div class="form-group">
-                <lable><input type="hidden" name="user_id" value="<?php echo $id;?>"></label>
+            <div class="form-group">               
                 <label>Company Name: <input type="text" class="form-control" name="company_name" required></label>
             </div>
             <div class="form-group">
@@ -32,8 +29,7 @@ echo "Hi";
                 <label>Phone: <input type="text" class="form-control" name="phone" required></label>
             </div>
             <div class="form-group">
-                <label>Product Name: <input type="text" class="form-control" name="product_name" required></label>
-                <lable><input type="hidden" name="user_login" value="<?php echo $user;?>"></label>
+                <label>Product Name: <input type="text" class="form-control" name="product_name" required></label>               
             </div>
 
             <button type="submit" id="submit" class="btn btn-primary">Submit</button>
@@ -41,27 +37,26 @@ echo "Hi";
         <div id="form-response"></div>
     </div>
 
-    <!-- Table on the right side -->
-    <div style="width: 50%;">
-        <h3><?php echo __('Company Data');?></h3>
-        <?php echo __('Type here to search by Company name');?>
-        <div class="form-group">
-            <input type="text" class="form-control"  id="search-input" placeholder="Search...">
-        </div>
-        <table id="data-table" class='table'>
-            <thead>
-                <tr>
-                    <th><?php echo __('Company Name');?></th>
-                    <th><?php echo __('Address');?></th>
-                    <th><?php echo __('Phone');?></th>
-                    <th><?php echo __('Product Name');?></th>
-                    <th><?php echo __('Logged By');?></th>
-                    <th><?php echo __('Edit');?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Data will be populated here via JavaScript -->
-            </tbody>
-        </table>
-    </div>
+
+    
 </div>
+
+<script>
+    document.getElementById('custom-data-form').addEventListener('submit', function(e) {
+         e.preventDefault();
+         const formData = new FormData(this);
+
+    fetch('<?php echo esc_url(rest_url('custom-dashboard/v1/update/$id}')); ?>', {
+            method: 'PUT',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('form-response').innerText = 'Data updated successfully!';
+            fetchData(); // Reload table data after inserting
+            document.getElementById("custom-data-form").reset();
+        });
+});
+
+
+</script>

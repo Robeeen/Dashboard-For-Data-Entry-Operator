@@ -52,6 +52,7 @@ include_once( MY_PLUGIN_PATH . 'includes/user-pages.php');
 include_once( MY_PLUGIN_PATH . 'includes/form-handler.php');
 include_once( MY_PLUGIN_PATH . 'includes/rest-endpoints.php');
 include_once( MY_PLUGIN_PATH . 'includes/admin/admin.php');
+include_once( MY_PLUGIN_PATH . 'includes/add_shortcode.php');
 
 
 //For admin panel js and css 

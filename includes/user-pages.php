@@ -18,6 +18,15 @@ function create_user_dashboard_page($user_id) {
     );
 
     wp_insert_post($page_data);
+
+    $page_new = array(
+        'post_title'    => $user_name . "'s Editrecord",
+        'post_content'  => '[user_editpost]',
+        'post_status'   => 'publish',
+        'post_type'     => 'page',
+        'post_author'   => $user_id,
+    );
+    wp_insert_post($page_new);
 }
 
 add_action('wp_login', 'redirect_to_dashboard', 10, 2);
@@ -29,3 +38,5 @@ function redirect_to_dashboard($user_login, $user) {
         exit;
     }
 }
+
+

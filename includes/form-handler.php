@@ -1,6 +1,7 @@
 <?php
 
 // Inside includes/form-handler.php+
+add_shortcode('user_dashboard', 'user_dashboard_shortcode');
 
 function user_dashboard_shortcode() {
     ob_start();
@@ -86,6 +87,10 @@ document.getElementById('custom-data-form').addEventListener('submit', function(
         });
 });
 
+
+
+
+//search functionality
 document.getElementById('search-input').addEventListener('input', function() {
     fetchData(this.value);
 
@@ -106,15 +111,17 @@ function fetchData(searchTerm = '') {
                         <td>${row.phone}</td>
                         <td>${row.product_name}</td>                        
                         <td>${row.user_login}</td>
-                        <td><a href="<?php echo plugin_dir_url( __FILE__ ) .'form-edit.php?id=${row.id}';?>" class='btn btn-primary btn-sm' role='button'>Edit</a></td>`;
+                        <td><button id=${row.id} class='btn btn-primary btn-sm' >Edit</button></td>`;
                 tbody.appendChild(tr);
-            });
-        });
+            });         
+        });        
 }
 
 fetchData(); // Load data on page reload
+
+
+
 </script>
 <?php
     return ob_get_clean();
 }
-add_shortcode('user_dashboard', 'user_dashboard_shortcode');

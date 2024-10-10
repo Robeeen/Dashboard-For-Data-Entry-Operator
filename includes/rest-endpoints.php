@@ -1,5 +1,5 @@
 <?php
-include('E:\xampp\htdocs\devwp\wp-content\plugins\dashboard\includes\admin\admin.php');
+//include('E:\xampp\htdocs\devwp\wp-content\plugins\dashboard\includes\admin\admin.php');
 
 // Inside includes/rest-endpoints.php
 $user_id = ""; 
@@ -18,8 +18,8 @@ add_action('rest_api_init', function () {
     ));
     //Not implemented
     register_rest_route('custom-dashboard/v1', '/update/(?P<id>\d+)', array(
-        'methods' => 'PUT',
-        'callback' => 'update_permission',
+        'methods' => WP_REST_Server::EDITABLE,
+        'callback' => 'edit_record',
         'args' => array(
             'id' => array(
                 'required' => true,
@@ -32,7 +32,7 @@ add_action('rest_api_init', function () {
     ));
 });
 //Not implemented
-function update_permission(WP_REST_Request $request){
+function edit_record(WP_REST_Request $request){
     global $wpdb; 
 
     $user_id = $request->get_param('id');   
