@@ -1,8 +1,7 @@
 <?php
 
-// Inside includes/form-handler.php+
+echo "Hi";
 
-function user_dashboard_shortcode() {
     ob_start();
     global $wpdb;
     $current_user = wp_get_current_user();
@@ -10,7 +9,7 @@ function user_dashboard_shortcode() {
     $user_result = $wpdb->get_row(
         $wpdb->prepare("SELECT * FROM wp_users WHERE ID = %d", $id)
     );
-    
+
     ?>
 
 <div style="<?php echo $user_result->user_status == 1 ? 'display : flex' : 'display: none' ;?>">
@@ -66,55 +65,3 @@ function user_dashboard_shortcode() {
         </table>
     </div>
 </div>
-
-
-<script>
-document.getElementById('custom-data-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const formData = new FormData(this);
-
-    fetch('<?php echo esc_url(rest_url('custom-dashboard/v1/data/')); ?>', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('form-response').innerText = 'Data inserted successfully!';
-            fetchData(); // Reload table data after inserting
-            document.getElementById("custom-data-form").reset();
-        });
-});
-
-document.getElementById('search-input').addEventListener('input', function() {
-    fetchData(this.value);
-
-});
-
-function fetchData(searchTerm = '') {
-    fetch('<?php echo esc_url(rest_url('custom-dashboard/v1/data/')); ?>')
-        .then(response => response.json())
-        .then(data => {
-            const tbody = document.querySelector('#data-table tbody');
-            tbody.innerHTML = '';
-
-            data.filter(item => item.company_name.includes(searchTerm)).forEach(row => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                        <td>${row.company_name}</td>
-                        <td>${row.address}</td>
-                        <td>${row.phone}</td>
-                        <td>${row.product_name}</td>                        
-                        <td>${row.user_login}</td>
-                        <td><a href="<?php echo plugins_url( '/form-edit.php?id=${row.id}', __FILE__ );?>" class='btn btn-primary btn-sm' role='button'>Edit</a></td>`;
-                tbody.appendChild(tr);
-            });
-        });
-}
-
-fetchData(); // Load data on page reload
-</script>
-<?php
-    return ob_get_clean();
-}
-add_shortcode('user_dashboard', 'user_dashboard_shortcode');
