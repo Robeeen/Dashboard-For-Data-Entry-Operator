@@ -12,7 +12,7 @@ echo "Hi";
 
     ?>
 
-<div style="<?php echo $user_result->user_status == 1 ? 'display : flex' : 'display: none' ;?>">
+<div style="display:flex">
     <!-- Form on the left side -->
     <div style="width: 50%;">
         <h3>Insert Company Data</h3>

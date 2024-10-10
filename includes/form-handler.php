@@ -106,7 +106,7 @@ function fetchData(searchTerm = '') {
                         <td>${row.phone}</td>
                         <td>${row.product_name}</td>                        
                         <td>${row.user_login}</td>
-                        <td><a href="<?php echo plugins_url( '/form-edit.php?id=${row.id}', __FILE__ );?>" class='btn btn-primary btn-sm' role='button'>Edit</a></td>`;
+                        <td><a href="<?php echo plugin_dir_url( __FILE__ ) .'form-edit.php?id=${row.id}';?>" class='btn btn-primary btn-sm' role='button'>Edit</a></td>`;
                 tbody.appendChild(tr);
             });
         });

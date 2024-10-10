@@ -35,18 +35,25 @@ add_action('rest_api_init', function () {
 function update_permission(WP_REST_Request $request){
     global $wpdb; 
 
-    $user_id = $display->ID;   
-    $user_status = sanitize_text_field($request->get_param('user_status'));
+    $user_id = $request->get_param('id');   
 
-    if (empty($user_status)) {
+    $address = sanitize_text_field($request->get_param('address'));
+    $company_name = sanitize_text_field($request->get_param('company_name'));
+    $product_name = sanitize_text_field($request->get_param('product_name'));
+    $phone = sanitize_text_field($request->get_param('phone'));
+
+    if (empty($user_id)) {
         return new WP_Error('no_value', 'New value is required', array('status' => 400));
     }
 
-    $custom_table = $wpdb->prefix . 'users'; 
+    $custom_table = $wpdb->prefix . 'custom_data'; 
     $result = $wpdb->update(
         $custom_table, 
         array(
-            'user_status' => $user_status,
+            'company_name' => $user_status,
+            'address' => $address,
+            'phone' => $phone,
+            'product_name' => $product_name
         ),
         array(
             'id' => $user_id,
