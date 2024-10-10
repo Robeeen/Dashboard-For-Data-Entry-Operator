@@ -67,12 +67,20 @@ function add_ajax_scripts() {
 add_action( 'admin_enqueue_scripts', 'add_ajax_scripts' );
 
 
-//For admin panel and front-end bootstrap
-wp_register_script('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js');
-wp_enqueue_script('prefix_bootstrap');
+//For admin panel 
+function add_bootstrap_js(){
+    wp_enqueue_script('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js');
+    wp_enqueue_style('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
+}
+add_action( 'admin_enqueue_scripts', 'add_bootstrap_js');
 
-wp_register_style('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
-wp_enqueue_style('prefix_bootstrap');
+//Front-end bootstrap
+function add_bootstrap_js_front(){
+    wp_enqueue_script('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js');
+    wp_enqueue_style('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
+}
+add_action( 'wp_enqueue_scripts', 'add_bootstrap_js_front');
+
 
 //For style to front-end
 function style_frontEnd(){

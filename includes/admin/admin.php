@@ -87,7 +87,7 @@ function my_admin_page_contents(){
     $query = $wpdb->get_results("SELECT * FROM $custom_table");
     echo "<div class='jumbotron'>";
     echo  __("<h2 class='display-4'>Dashboard Control for Users</h2><br>");
-    echo "<form action='' method='POST'><table class='table' >";            
+    echo "<form action='' method='POST'><table class='table'>";            
             echo "<thead class='thead-dark'>";
             echo "<tr>";
             echo "<th scope='col'>User Name</th><th scope='col'>Email</th><th>Controls</th>";

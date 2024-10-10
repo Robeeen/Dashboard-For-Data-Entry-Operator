@@ -16,7 +16,7 @@ function user_dashboard_shortcode() {
 <div style="<?php echo $user_result->user_status == 1 ? 'display : flex' : 'display: none' ;?>">
     <!-- Form on the left side -->
     <div style="width: 50%;">
-        <h3>Insert Company Data </h3>
+        <h3>Insert Company Data</h3>
         <?php $current_user = wp_get_current_user();
                   $id = $current_user->ID;
                   echo "Hello! " . $user=$current_user->user_login;                
