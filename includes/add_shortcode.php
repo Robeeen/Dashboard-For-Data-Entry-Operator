@@ -42,7 +42,7 @@ function edit_display_form() {
     <div style="width: 70%;">
         <h3>Edit Company Data</h3>
 
-        <form id="custom-data-form" method="POST" action=''>
+        <form id="custom-edit-form" method="POST" action=''>
             <div class="form-group">
                 <label>Company Name: <input type="text" class="form-control" name="company_name"
                         value="<?php echo $user_result['company_name'];?>"></label>

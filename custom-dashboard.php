@@ -57,11 +57,8 @@ include_once( MY_PLUGIN_PATH . 'includes/add_shortcode.php');
 
 //For admin panel js and css 
 function add_ajax_scripts() {
-    wp_enqueue_script( 'ajaxcalls', plugins_url( 'ajax-calls.js', __FILE__ ));
-    wp_localize_script( 'ajaxcalls', 'ajax_object', array(
-        'ajaxurl' => admin_url( 'admin-ajax.php' ),
-        'ajaxnonce' => wp_create_nonce( 'ajax_post_validation' )
-    ) );
+    wp_enqueue_script( 'ajaxcalls', plugins_url( 'ajax-calls.js', __FILE__ ), array('jquery') );
+ 
     wp_enqueue_style( 'css', plugins_url( 'style.css', __FILE__));
 }
 
@@ -79,8 +76,10 @@ add_action( 'admin_enqueue_scripts', 'add_bootstrap_js');
 function add_bootstrap_js_front(){
     wp_enqueue_script('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js');
     wp_enqueue_style('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
+    wp_enqueue_script('jQuery', '//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js');
 }
 add_action( 'wp_enqueue_scripts', 'add_bootstrap_js_front');
+
 
 
 //For style to front-end
