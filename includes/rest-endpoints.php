@@ -18,7 +18,7 @@ add_action('rest_api_init', function () {
     ));
     //Not implemented
     register_rest_route('custom-dashboard/v1', '/update/(?P<id>\d+)', array(
-        'methods' => WP_REST_Server::EDITABLE,
+        'methods' => 'PUT',
         'callback' => 'edit_record',
         'args' => array(
             'id' => array(
@@ -50,7 +50,7 @@ function edit_record(WP_REST_Request $request){
     $result = $wpdb->update(
         $custom_table, 
         array(
-            'company_name' => $user_status,
+            'company_name' => $company_name,
             'address' => $address,
             'phone' => $phone,
             'product_name' => $product_name
