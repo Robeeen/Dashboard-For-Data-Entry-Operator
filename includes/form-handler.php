@@ -65,7 +65,13 @@ function user_dashboard_shortcode() {
                 <!-- Data will be populated here via JavaScript -->
             </tbody>
         </table>
+        <div id="pagination">
+        <button type="button" id="prev" class="btn btn-warning" disabled>Previous</button>
+        <span id="page-info">Page 1</span>
+        <button type="button" id="next" name="next" class="btn btn-warning">Next</button>
     </div>
+    </div>
+    
 </div>
 
 
@@ -96,14 +102,27 @@ document.getElementById('search-input').addEventListener('input', function() {
 
 });
 
-function fetchData(searchTerm = '') {
-    fetch('<?php echo esc_url(rest_url('custom-dashboard/v1/data/')); ?>')
+let currentPage = 1;
+const itemsPerPage = 5; // Adjust this value to change the number of rows per page
+
+function fetchData(searchTerm = '', page = 1, limit = itemsPerPage) {
+    fetch(`<?php echo esc_url(rest_url('custom-dashboard/v1/data/')); ?>`)
         .then(response => response.json())
         .then(data => {
+            // Filter the data based on the search term
+            const filteredData = data.filter(item => item.company_name.includes(searchTerm));
+
+            // Pagination logic
+            const totalItems = filteredData.length;
+            const totalPages = Math.ceil(totalItems / limit);
+            const start = (page - 1) * limit;
+            const end = start + limit;
+            const paginatedData = filteredData.slice(start, end);
+
+            // Update table
             const tbody = document.querySelector('#data-table tbody');
             tbody.innerHTML = '';
-
-            data.filter(item => item.company_name.includes(searchTerm)).forEach(row => {
+            paginatedData.forEach(row => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                         <td>${row.company_name}</td>
@@ -113,15 +132,47 @@ function fetchData(searchTerm = '') {
                         <td>${row.user_login}</td>
                         <td><a href='${row.user_login}s-editrecord?id=${row.id}' class='btn btn-primary btn-sm' role='button'>Edit</a></td>`;
                 tbody.appendChild(tr);
-            });         
-        });        
+            });
+
+            // Update pagination info
+            document.getElementById('page-info').textContent = `Page ${page} of ${totalPages}`;
+            
+            // Enable/disable buttons based on the current page
+            document.getElementById('prev').disabled = page === 1;
+            document.getElementById('next').disabled = page === totalPages;
+        });
 }
 
-fetchData(); // Load data on page reload
+// Add event listeners for pagination buttons
+    const prevButton = document.getElementById('prev');
+    const nextButton = document.getElementById('next');
 
+    if (prevButton) {
+        prevButton.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                fetchData('', currentPage);
+            }
+        });
+    }
 
+    if (nextButton) {
+        nextButton.addEventListener('click', () => {
+            currentPage++;
+            fetchData('', currentPage);
+            console.log('Next button clicked');
+        });
+    }
+
+    // Initial data load
+    fetchData();
+    console.log(typeof jQuery);
 
 </script>
+
+
+
+
 <?php
     return ob_get_clean();
 }
