@@ -63,7 +63,7 @@ function edit_display_form() {
             </div>
 
             <button type="submit" id="submit" name="submit" class="btn btn-primary">Update</button>
-            <INPUT TYPE="button" VALUE="Back" onClick="history.go(-2);">
+            <a href='form-edit.php?page=edit-page&id=$display->ID' class='btn btn-info' role='button'>Back</a>
         </form>
     </div>
 </div>
