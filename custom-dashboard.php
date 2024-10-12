@@ -67,6 +67,7 @@ add_action( 'admin_enqueue_scripts', 'add_ajax_scripts' );
 
 //For admin panel 
 function add_bootstrap_js(){
+    wp_enqueue_script('jQuery', '//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js');
     wp_enqueue_script('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js');
     wp_enqueue_style('prefix_bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
 }

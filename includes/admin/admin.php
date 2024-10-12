@@ -26,8 +26,8 @@ function dashboard_admin_menu() {
         'Delete Operator',
         '',
         'manage_options',
-        'delete-page',
-        'delete_page_callback'
+        'delete-operator',
+        'delete_operator_callback'
     );
     add_submenu_page(
         'admin-page',
@@ -36,6 +36,14 @@ function dashboard_admin_menu() {
         'manage_options',
         'display-page',
         'display_page_callback'
+    );
+    add_submenu_page(
+        'admin-page',
+        'Delete Data',
+        '',
+        'manage_options',
+        'delete-page',
+        'delete_page_callback'
     );
   
 }
@@ -58,7 +66,6 @@ function edit_page_callback(){
             <a href='admin.php?page=admin-page' class='btn btn-primary' role='button'>Back</a>
         </div>
     </div>
-
 </form>
 <?php
     if(isset($_REQUEST['submit_permission'])){
@@ -93,7 +100,7 @@ function my_admin_page_contents(){
     $custom_table = $wpdb->prefix . 'users';    
     $query = $wpdb->get_results("SELECT * FROM $custom_table");
     echo "<div class='jumbotron'>";
-    echo  __("<h2 class='display-4'>Dashboard Control for Users</h2><br>");
+    echo  __("<h2 class='display-4'>Dashboard Control for Operator</h2><br>");
     echo "<form action='' method='POST'><table class='table'>";            
             echo "<thead class='thead-dark'>";
             echo "<tr>";
@@ -117,7 +124,7 @@ function my_admin_page_contents(){
     echo "<div id='form-response'></div>";   
 }
 
-function delete_page_callback(){
+function delete_operator_callback(){
     global $wpdb;
     $record_id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : "";
     echo $record_id;
@@ -171,29 +178,66 @@ function display_page_callback(){
                             <td>$display->address</td>
                             <td>$display->phone</td>
                             <td>$display->product_name</td>
-                            <td><a href='admin.php?page=display-page&id=$display->id' class='btn btn-primary btn-sm' role='button'>Remove</a></td>
+                            <td><a href='admin.php?page=delete-page&id=$display->id' class='btn btn-danger btn-sm' role='button' >Remove</a></td>
                         </tr>"; 
             }     
     }  
     echo "</tbody>";
     echo "</table></form>";
-    echo "</div>";
-    echo "<div id='form-response'></div>";     
+    echo "</div>";    
+}
+
+function delete_page_callback(){
+?>
+    <div class='jumbotron'>
+<?php
     
+    global $wpdb;
+    $custom_table = $wpdb->prefix . 'custom_data';    
     $id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : '';    
-    echo $id;
-    if(isset($_REQUEST['Remove'])){
+    if(isset($_REQUEST['delete'])){
+        if ($_REQUEST['conf'] == 'yes'){
         if(!empty($id)){
-            $wpdb->delete(
+           $deleted = $wpdb->delete(
                 $custom_table,
                 array(
                     'id' => $id,
                 ),
                 array(
                     '%d' 
-                )
+                ),
             );
+            
+         if(true == $deleted){
+            echo '<div id="form-response">' . $msg = 'The record has been Deleted!</div>';
+         }else{
+            echo  $wpdb->show_errors();
+         }
+
         }
-    }
-   
+        }
+}?>
+
+    <h2 class='display-4'>Delete user record</h2><br>
+        <form method="post">
+            <div class="form-check delete">
+                <label>Are you sure want delete <?php echo $id; ?>?</label><br>
+                <input type="radio" name="conf" value="yes" class="form-check-input" >
+                <label class="form-check-label" for="conf">
+                    Yes &nbsp;
+                </label>
+                <input type="radio" name="conf" value="no" class="form-check-input" checked>
+                <label class="form-check-label" for="conf">
+                &nbsp; No
+                </label>
+            </div><br>
+            <div>
+                <button type="submit" name="delete" class="btn btn-danger">Delete</button>
+                <a href='admin.php?page=display-page' class='btn btn-primary' role='button'>Back</a>
+                <input type="hidden" name="id" value="<?php echo $id; ?>" />
+            </div>
+        </form>
+</div>
+
+<?php
 }
