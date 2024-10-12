@@ -92,3 +92,27 @@ function style_frontEnd(){
 }
 add_action( 'wp_enqueue_scripts', 'style_frontEnd');
 
+
+//Deactivation Hook - remove all Editrecord and Dashboard Pages
+register_deactivation_hook( __FILE__, 'remove_all_dashboard_page');
+
+function remove_all_dashboard_page(){
+    $query1 = new WP_Query ( array('s' => 's Dashboard'));
+
+    while ($query1->have_posts ()) {
+        $query1->the_post ();
+        $id = get_the_ID ();
+        wp_delete_post ($id, true);
+      }
+      wp_reset_postdata ();
+    
+    $query2 = new WP_Query ( array('s' => 's Editrecord'));
+    while ($query2->have_posts ()){
+        $query2->the_post ();
+        $id = get_the_ID ();
+        wp_delete_post($id, true);
+    }
+    wp_reset_postdata ();
+}
+
+
