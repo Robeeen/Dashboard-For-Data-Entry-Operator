@@ -1,16 +1,13 @@
 <?php
 
-
 add_shortcode('user_editpost', 'edit_display_form');
 
 function edit_display_form() {
-
     ob_start();
     global $wpdb;
     $id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : '';    
     $custom_table = $wpdb->prefix . 'custom_data'; 
     $msg = '';
-
     
    //Update data
    if(isset($_REQUEST['submit'])){
@@ -34,9 +31,7 @@ function edit_display_form() {
         echo '<div id="form-response">' . $msg = 'Record Updated</div>';
         
     }
-
  }
-
 
     //To echo data on each field before edit
     $user_result = $wpdb->get_row(
@@ -68,29 +63,10 @@ function edit_display_form() {
             </div>
 
             <button type="submit" id="submit" name="submit" class="btn btn-primary">Update</button>
+            <INPUT TYPE="button" VALUE="Back" onClick="history.go(-2);">
         </form>
-        <div id="form-response"></div>
     </div>
 </div>
-
-<!-- <script>
-document.getElementById('custom-edit-form').addEventListener('update', function(e) {
-    e.preventDefault();
-
-    const formData = new FormData(this);
-
-    fetch('<?php echo esc_url(rest_url('custom-dashboard/v1/update/(?P<id>\d+)')); ?>', {
-            method: 'PUT',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('form-response').innerText = 'Data Updated successfully!';
-            fetchData(); // Reload table data after inserting
-            document.getElementById("custom-data-form").reset();
-        });
-});
-</script> -->
 
 <?php   
     return ob_get_clean();
