@@ -26,7 +26,7 @@ function dashboard_admin_menu() {
         'Delete Operator',
         '',
         'manage_options',
-        'delete-operator',
+        'delete-operator-page',
         'delete_operator_callback'
     );
     add_submenu_page(
@@ -48,6 +48,7 @@ function dashboard_admin_menu() {
   
 }
 
+//Permission Change Each Operator
 function edit_page_callback(){
     global $wpdb;
     $record_id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : "";
@@ -94,17 +95,17 @@ function edit_page_callback(){
     echo "<meta http-equiv='refresh' content='0'>";
     }    
 }
-
+//Admin page - Main page
 function my_admin_page_contents(){    
     global $wpdb;
     $custom_table = $wpdb->prefix . 'users';    
     $query = $wpdb->get_results("SELECT * FROM $custom_table");
     echo "<div class='jumbotron'>";
-    echo  __("<h2 class='display-4'>Dashboard Control for Operator</h2><br>");
+    echo  __("<h2 class='display-4'>Dashboard Control of Operator</h2><br>");
     echo "<form action='' method='POST'><table class='table'>";            
             echo "<thead class='thead-dark'>";
             echo "<tr>";
-            echo "<th scope='col'>User Name</th><th scope='col'>Email</th><th>Permission</th><th>Delete User</th>";
+            echo "<th scope='col'>User Name</th><th scope='col'>Email Address</th><th>Permission</th><th>Delete User</th>";
             echo "</tr>";
             echo "</thead>";
             echo "<tbody>";
@@ -114,7 +115,7 @@ function my_admin_page_contents(){
                             <td>$display->user_login</td>
                             <td>$display->user_email</td>
                             <td><a href='admin.php?page=edit-page&id=$display->ID' class='btn btn-primary btn-sm' role='button'>Edit</a></td>
-                            <td><a href='admin.php?page=delete-page&id=$display->ID' class='btn btn-danger btn-sm' role='button'>Delete</a></td>
+                            <td><a href='admin.php?page=delete-operator-page&id=$display->ID' class='btn btn-danger btn-sm' role='button'>Delete</a></td>
                         </tr>"; 
             }     
     }  
@@ -124,31 +125,59 @@ function my_admin_page_contents(){
     echo "<div id='form-response'></div>";   
 }
 
+//Delete Operator Access
 function delete_operator_callback(){
+    ?>
+    <div class='jumbotron'>
+<?php
     global $wpdb;
     $record_id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : "";
     echo $record_id;
-    $table_name = $wpdb->prefix . 'users';
+    $table_name = $wpdb->prefix . 'users';    
 
+    if(isset($_REQUEST['delete'])){
+        if ($_REQUEST['info'] == 'yes'){
+            if(!empty($record_id)){
+                $result = $wpdb->delete( //We need work here later on $result since saying not defined!
+                    $table_name,
+                    array(
+                        'ID' => $record_id,
+                    ),
+                    array(
+                        '%d',
+                    )
+                );
+                if(false == $result){
+                    echo  $wpdb->last_error; //It will show any error realtime! 
+                }else{
+                    echo '<div id="form-response">' . $msg = 'The account has been Deleted!</div>';
+                }
+            }       
+        }
+    }?>
     
-    if(isset($_REQUEST['Delete'])){
-        global $wpdb;
-        $result = $wpdb->delete( //We need work here later on $result since saying not defined!
-            $table_name,
-            array(
-                'ID' => $record_id,
-            ),
-            array(
-                '%d',
-            )
-        );
-    }
-    if(false == $result){
-        echo  $wpdb->last_error; //It will show any error realtime! 
-    }else{
-        echo '<div id="form-response">' . $msg = 'The account has been Deleted!</div>';
-    }
-
+    <h2 class='display-4'>Delete Operator Account</h2><br>
+        <form method="post">
+            <div class="form-check delete">
+                <label>Are you sure want delete <?php echo $record_id; ?>?</label><br>
+                <input type="radio" name="info" value="yes" class="form-check-input" >
+                <label class="form-check-label" for="info">
+                    Yes &nbsp;
+                </label>
+                <input type="radio" name="info" value="no" class="form-check-input" checked>
+                <label class="form-check-label" for="info">
+                &nbsp; No
+                </label>
+            </div><br>
+            <div>
+                <button type="submit" name="delete" class="btn btn-danger">Delete</button>
+                <a href='admin.php?page=admin-page' class='btn btn-primary' role='button'>Back</a>
+                <input type="hidden" name="id" value="<?php echo  $record_id; ?>" />
+            </div>
+        </form>
+</div>
+    
+<?php
 }
 
 //Display all User input data and Delete Function:
@@ -187,6 +216,7 @@ function display_page_callback(){
     echo "</div>";    
 }
 
+//Delete all data from the Display Page
 function delete_page_callback(){
 ?>
     <div class='jumbotron'>
