@@ -170,7 +170,8 @@ function fetchData(searchTerm = '', page = 1, limit = itemsPerPage) {
 
 </script>
 
-
+<br />
+<br />
 
 
 <?php
