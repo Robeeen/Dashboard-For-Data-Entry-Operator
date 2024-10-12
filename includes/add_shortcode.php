@@ -12,25 +12,30 @@ function edit_display_form() {
     $msg = '';
 
     
-   // Update data
-   if(isset($_POST['update'])){
+   //Update data
+   if(isset($_REQUEST['submit'])){
     if(!empty($id)){
-        $wpdb->update(
+       $update = $wpdb->update(
             $custom_table, 
             array(
-                'company_name' => $_POST['company_name'],
-                'address' => $_POST['address'],
-                'phone' => $_POST['phone'],
-                'product_name' => $_POST['product_name']
+                'company_name' => $_REQUEST['company_name'],
+                'address' => $_REQUEST['address'],
+                'phone' => $_REQUEST['phone'],
+                'product_name' => $_REQUEST['product_name']
             ),
             array(
                 'id' => $id,
             ),  
-        );
-            $msg = 'Record Updated';
+        );   
+    }
+    if(false == $update){
+      echo  $wpdb->last_error;
+    }else{
+        echo $msg = 'Record Updated';
     }
 
-}
+ }
+echo $msg;
 
     //To echo data on each field before edit
     $user_result = $wpdb->get_row(
@@ -42,7 +47,7 @@ function edit_display_form() {
     <div style="width: 70%;">
         <h3>Edit Company Data</h3>
 
-        <form id="custom-edit-form" method="POST" action=''>
+        <form id="custom-edit-form" method="POST">
             <div class="form-group">
                 <label>Company Name: <input type="text" class="form-control" name="company_name"
                         value="<?php echo $user_result['company_name'];?>"></label>
@@ -60,14 +65,14 @@ function edit_display_form() {
                         value="<?php echo $user_result['product_name'];?>"></label>
             </div>
 
-            <button type="submit" id="update" class="btn btn-primary">Update</button>
+            <button type="submit" id="submit" name="submit" class="btn btn-primary">Update</button>
         </form>
         <div id="form-response"></div>
     </div>
 </div>
 
 <!-- <script>
-document.getElementById('custom-data-form').addEventListener('update', function(e) {
+document.getElementById('custom-edit-form').addEventListener('update', function(e) {
     e.preventDefault();
 
     const formData = new FormData(this);

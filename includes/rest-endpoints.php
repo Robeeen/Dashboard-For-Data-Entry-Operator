@@ -17,7 +17,7 @@ add_action('rest_api_init', function () {
         'permission_callback' => '__return_true',
     ));
     //Not implemented
-    register_rest_route('custom-dashboard/v1', '/update/(?P<id>\d+)', array(
+    register_rest_route('custom-dashboard/v1', '/update/(?P\d+)', array(
         'methods' => 'PUT',
         'callback' => 'edit_record',
         'args' => array(
