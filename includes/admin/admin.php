@@ -40,7 +40,8 @@ function submenu_page_callback(){
     <div class="form-check checkbox-xl">
         <input type='checkbox' class='form-check-input' id='status' name='status'
             <?php echo $user_result->user_status ? 'checked' : '';?> />            
-        <input type='submit' name='submit_permission' value='submit' class="btn btn-primary" />
+        <input type='submit' name='submit_permission' value='Submit' class="btn btn-primary" />
+        <a href='admin.php?page=admin-page' class='btn btn-primary' role='button'>Back</a>
     </div>
 </div>
 

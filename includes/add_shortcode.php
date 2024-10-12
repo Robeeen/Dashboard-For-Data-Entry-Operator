@@ -63,7 +63,7 @@ function edit_display_form() {
             </div>
 
             <button type="submit" id="submit" name="submit" class="btn btn-primary">Update</button>
-            <a href='form-edit.php?page=edit-page&id=$display->ID' class='btn btn-info' role='button'>Back</a>
+            <a href="<?php echo $user_result['user_login'];?>s-dashboard" class='btn btn-info' role='button'>Back</a>
         </form>
     </div>
 </div>
