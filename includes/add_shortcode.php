@@ -29,21 +29,23 @@ function edit_display_form() {
         );   
     }
     if(false == $update){
-      echo  $wpdb->last_error;
+      echo  $wpdb->last_error; //It will show any error realtime!
     }else{
-        echo $msg = 'Record Updated';
+        echo '<div id="form-response">' . $msg = 'Record Updated</div>';
+        
     }
 
  }
-echo $msg;
+
 
     //To echo data on each field before edit
     $user_result = $wpdb->get_row(
         $wpdb->prepare("SELECT * FROM wp_custom_data WHERE id = %d",  $id), ARRAY_A);
-        print_r($user_result);
+        //print_r($user_result);
 ?>
-<div style="display:flex">
+
     <!-- Form on the left side -->
+<div style="display:flex">
     <div style="width: 70%;">
         <h3>Edit Company Data</h3>
 
