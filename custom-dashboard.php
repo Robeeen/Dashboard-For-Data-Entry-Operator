@@ -113,6 +113,12 @@ function remove_all_dashboard_page(){
         wp_delete_post($id, true);
     }
     wp_reset_postdata ();
+
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'custom_data'; // Table name with WordPress prefix
+
+    $sql = "DROP TABLE IF EXISTS $table_name"; //delete tables from the db .
+    $wpdb->query($sql);
 }
 
 

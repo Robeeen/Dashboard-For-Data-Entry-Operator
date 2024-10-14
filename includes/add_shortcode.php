@@ -47,19 +47,19 @@ function edit_display_form() {
         <form id="custom-edit-form" method="POST">
             <div class="form-group">
                 <label>Company Name: <input type="text" class="form-control" name="company_name"
-                        value="<?php echo $user_result['company_name'];?>"></label>
+                        value="<?php echo $user_result['company_name'];?>" autocomplete="off"></label>
             </div>
             <div class="form-group">
                 <label>Address: <input type="text" class="form-control" name="address"
-                        value="<?php echo $user_result['address'];?>"></label>
+                        value="<?php echo $user_result['address'];?>" autocomplete="off"></label>
             </div>
             <div class="form-group">
                 <label>Phone: <input type="text" class="form-control" name="phone"
-                        value="<?php echo $user_result['phone'];?>"></label>
+                        value="<?php echo $user_result['phone'];?>" autocomplete="off"></label>
             </div>
             <div class="form-group">
                 <label>Product Name: <input type="text" class="form-control" name="product_name"
-                        value="<?php echo $user_result['product_name'];?>"></label>
+                        value="<?php echo $user_result['product_name'];?>" autocomplete="off"></label>
             </div>
 
             <button type="submit" id="submit" name="submit" class="btn btn-primary">Update</button>
