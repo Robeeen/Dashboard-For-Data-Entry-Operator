@@ -117,6 +117,7 @@ function remove_all_dashboard_page(){
     }
     wp_reset_postdata ();
 
+    //Remove the database Table 
     global $wpdb;
     $table_name = $wpdb->prefix . 'custom_data'; // Table name with WordPress prefix
 
