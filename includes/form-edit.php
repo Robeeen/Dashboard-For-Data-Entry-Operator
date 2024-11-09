@@ -17,9 +17,9 @@
     <!-- Form on the left side -->
     <div style="width: 70%;">
         <h3>Insert Company Data</h3>
-  
+
         <form id="custom-data-form">
-            <div class="form-group">               
+            <div class="form-group">
                 <label>Company Name: <input type="text" class="form-control" name="company_name" required></label>
             </div>
             <div class="form-group">
@@ -29,22 +29,19 @@
                 <label>Phone: <input type="text" class="form-control" name="phone" required></label>
             </div>
             <div class="form-group">
-                <label>Product Name: <input type="text" class="form-control" name="product_name" required></label>               
+                <label>Product Name: <input type="text" class="form-control" name="product_name" required></label>
             </div>
 
             <button type="submit" id="submit" class="btn btn-primary">Submit</button>
         </form>
         <div id="form-response"></div>
     </div>
-
-
-    
 </div>
 
 <script>
-    document.getElementById('custom-data-form').addEventListener('submit', function(e) {
-         e.preventDefault();
-         const formData = new FormData(this);
+document.getElementById('custom-data-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
 
     fetch('<?php echo esc_url(rest_url('custom-dashboard/v1/update/$id}')); ?>', {
             method: 'PUT',
@@ -57,6 +54,4 @@
             document.getElementById("custom-data-form").reset();
         });
 });
-
-
 </script>
