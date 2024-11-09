@@ -97,6 +97,7 @@ add_action( 'wp_enqueue_scripts', 'style_frontEnd');
 register_deactivation_hook( __FILE__, 'remove_all_dashboard_page');
 
 function remove_all_dashboard_page(){
+    //remove all dashboard pages
     $query1 = new WP_Query ( array('s' => 's Dashboard'));
 
     while ($query1->have_posts ()) {
@@ -105,8 +106,10 @@ function remove_all_dashboard_page(){
         wp_delete_post ($id, true);
       }
       wp_reset_postdata ();
-    
+
+    //remove all Editrecord pages
     $query2 = new WP_Query ( array('s' => 's Editrecord'));
+
     while ($query2->have_posts ()){
         $query2->the_post ();
         $id = get_the_ID ();
