@@ -2,10 +2,6 @@
 
     ob_start();
     global $wpdb;
-
-    //$current_user = wp_get_current_user();
-    //$current_user = wp_get_current_user();
-    //$id = $current_user->ID;
     $GLOBALS['user_id'] = get_current_user_id();
     $user_result = $wpdb->get_row(
         $wpdb->prepare("SELECT * FROM wp_custom_data WHERE id = %d",   $GLOBALS['user_id'])
