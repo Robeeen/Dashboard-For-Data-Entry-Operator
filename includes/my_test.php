@@ -52,3 +52,6 @@ $query = new WP_Query(array('p' => 10));
 //Display child pages using parent page ID:
 $query = new WP_Query(array('post_parent' => 10));
 
+//Display post using per page
+
+
