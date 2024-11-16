@@ -53,7 +53,8 @@ $query = new WP_Query(array('p' => 10));
 $query = new WP_Query(array('post_parent' => 10));
 
 //Display post using per page
-$query = new WP_Query(array('per_page' => 10));
+$query = new WP_Query(array('posts_per_page' => 10));
+$query = new WP_Query( array( 'posts_per_page' => -1 ) );
 
 //To display posts from either category 2 OR 6, 
 $query = new WP_Query( array( 'category__in' => array( 2, 6 ) ) );
