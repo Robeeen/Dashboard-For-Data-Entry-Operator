@@ -59,5 +59,6 @@ $query = new WP_Query( array( 'posts_per_page' => -1 ) );
 //To display posts from either category 2 OR 6, 
 $query = new WP_Query( array( 'category__in' => array( 2, 6 ) ) );
 
+//Display 5 posts per page which follow the 3 most recent posts:
 $query = new WP_Query( array( 'posts_per_page' => 5, 'offset' => 3 ) );
 
