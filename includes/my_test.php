@@ -53,5 +53,5 @@ $query = new WP_Query(array('p' => 10));
 $query = new WP_Query(array('post_parent' => 10));
 
 //Display post using per page
-
+$query = new WP_Query(array('per_page' => 10));
 
