@@ -65,5 +65,6 @@ $query = new WP_Query( array( 'posts_per_page' => 5, 'offset' => 3 ) );
 //Display posts by author, using author id:
 $query = new WP_Query( array( 'author' => 123 ) );
 
-
+//Display posts from several specific authors:
+$query = new WP_Query( array( 'author' => '2,6,17,38' ) );
 
