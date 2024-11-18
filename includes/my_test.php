@@ -68,3 +68,5 @@ $query = new WP_Query( array( 'author' => 123 ) );
 //Display posts from several specific authors:
 $query = new WP_Query( array( 'author' => '2,6,17,38' ) );
 
+//Display posts that have one category (and any children of that category), using category id:
+$query = new WP_Query( array( 'cat' => 4 ) );
