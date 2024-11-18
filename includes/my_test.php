@@ -62,5 +62,8 @@ $query = new WP_Query( array( 'category__in' => array( 2, 6 ) ) );
 //Display 5 posts per page which follow the 3 most recent posts:
 $query = new WP_Query( array( 'posts_per_page' => 5, 'offset' => 3 ) );
 
+//Display posts by author, using author id:
 $query = new WP_Query( array( 'author' => 123 ) );
+
+
 
