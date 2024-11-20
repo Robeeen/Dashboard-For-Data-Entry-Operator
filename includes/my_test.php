@@ -74,3 +74,5 @@ $query = new WP_Query( array( 'cat' => 4 ));
 //Display posts that have this category (and any children of that category), using category slug:
 $query = new WP_Query( array( 'category_name' => 'staff' ));
 
+//Display posts that have these categories, using category slug:
+$query = new WP_Query( array( 'category_name' => 'staff,news' ) );
