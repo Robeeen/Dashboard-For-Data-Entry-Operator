@@ -5,7 +5,7 @@
  * Description: A plugin to create custom dashboards for users with registration, form input, and table display.
  * Version: 1.0.0
  * Requires at least: 5.0
- * Requires PHP: 7.0
+ * Requires PHP: 8.0
  * Author: Shams Khan
  * Author URI: https://shamskhan.com
  * License: GPL-2.0+
